@@ -10,54 +10,53 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.example.sefu.falcochat.adapter.FriendsChatAdapter;
-import com.example.sefu.falcochat.model.FriendChatModel;
-import com.example.sefu.falcochat.model.MyFriendChatData;
+import com.example.sefu.falcochat.adapter.GroupChatAdapter;
+import com.example.sefu.falcochat.model.GroupChatModel;
+import com.example.sefu.falcochat.model.MyGroupChatData;
 
 import java.util.ArrayList;
 
-public class ChatFriends extends AppCompatActivity {
+public class ChatGroups extends AppCompatActivity {
     private static RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
-    private static ArrayList<FriendChatModel> data;
+    private static ArrayList<GroupChatModel> data;
 
     static View.OnClickListener myOnClickListener;
     private static ArrayList<Integer> removedItems;
-
-    LinearLayout groupTransition;
+    LinearLayout friendTransition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-        setContentView(R.layout.activity_chat_friends);
+        setContentView(R.layout.activity_chat_groups);
 
-        groupTransition = (LinearLayout) findViewById(R.id.groupTransition);
 
-        groupTransition.setOnClickListener(new View.OnClickListener() {
+        friendTransition = (LinearLayout) findViewById(R.id.friendsTransition);
+
+        friendTransition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startGroup = new Intent(getApplicationContext(), ChatGroups.class);
+                Intent startGroup = new Intent(getApplicationContext(), ChatFriends.class);
                 startActivity(startGroup);
             }
         });
 
-
-        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view_chat_friend);
+        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view_chat_group);
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        data = new ArrayList<FriendChatModel>();
-        for (int i = 0; i < MyFriendChatData.friendNameArray.length; i++) {
-            data.add(new FriendChatModel(
-                    MyFriendChatData.friendNameArray[i],
-                    MyFriendChatData.textNameArray[i],
-                    MyFriendChatData.userProfileArray[i],
-                    MyFriendChatData.id_[i]
+        data = new ArrayList<GroupChatModel>();
+        for (int i = 0; i < MyGroupChatData.itemNameArray.length; i++) {
+            data.add(new GroupChatModel(
+                    MyGroupChatData.itemNameArray[i],
+                    MyGroupChatData.membersNumberArray[i],
+                    MyGroupChatData.itemIconArray[i],
+                    MyGroupChatData.id_[i]
             ));
         }
 
@@ -68,7 +67,7 @@ public class ChatFriends extends AppCompatActivity {
         recyclerView.addItemDecoration(itemDecoration);
 
 
-        adapter = new FriendsChatAdapter(data);
+        adapter = new GroupChatAdapter(data);
         recyclerView.setAdapter(adapter);
     }
 }

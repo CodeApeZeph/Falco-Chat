@@ -45,7 +45,7 @@ public class FriendsChatAdapter extends RecyclerView.Adapter<FriendsChatAdapter.
     public FriendsChatAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent,
                                                             int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.custom_friend_chat_tem, parent, false);
+                .inflate(R.layout.custom_friend_chat_item, parent, false);
 
         FriendsChatAdapter.MyViewHolder myViewHolder = new FriendsChatAdapter.MyViewHolder(view);
         return myViewHolder;
